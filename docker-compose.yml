@@ -1,0 +1,18 @@
+services:
+  ml:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - .:/usr/local/ML_Repo       # Mount the entire repository
+      - ./env:/opt/conda/envs       # Persist the Conda environments
+      - ./data:/usr/local/ML_Repo/data  # (Optional) Mount a data directory
+    working_dir: /usr/local/ML_Repo
+    tty: true

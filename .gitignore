@@ -1,0 +1,30 @@
+# Ignore Perforce-related files
+.p4*
+
+# Ignore macOS-specific system files
+.DS_Store
+.AppleDouble
+
+# Ignore local Conda environments and virtual environments
+.conda/
+.env
+.venv/
+env/*        # Ignore all contents of env/ (except .gitkeep)
+!env/.gitkeep  # But track .gitkeep to ensure the directory exists
+
+# Ignore Python bytecode and Jupyter checkpoints
+*.pyc
+__pycache__/
+.ipynb_checkpoints/
+
+# Ignore build artifacts
+build/
+
+# Ignore Docker-related artifacts
+*.log
+*.pid
+docker-compose.override.yml  # In case you create custom overrides
+
+# Ignore data directory contents but keep the directory itself
+data/*
+!data/.gitkeep  # But track .gitkeep to ensure the directory exists
