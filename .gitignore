@@ -9,8 +9,8 @@
 .conda/
 .env
 .venv/
-env/*        # Ignore all contents of env/ (except .gitkeep)
-!env/.gitkeep  # But track .gitkeep to ensure the directory exists
+env/
+!env/.gitkeep
 
 # Ignore Python bytecode and Jupyter checkpoints
 *.pyc
@@ -23,4 +23,3 @@ build/
 # Ignore Docker-related artifacts
 *.log
 *.pid
-docker-compose.override.yml  # In case you create custom overrides

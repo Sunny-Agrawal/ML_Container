@@ -13,5 +13,6 @@ services:
     volumes:
       - .:/usr/local/ML_Repo       # Mount the entire repository
       - ./env:/opt/conda/envs       # Persist the Conda environments
+      - ./environment.yml:/tmp/environment.yml # Mounte environment file for runtime.
     working_dir: /usr/local/ML_Repo
     tty: true

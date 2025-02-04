@@ -28,6 +28,9 @@
     # Initialize Conda in the shell
     # ---------------------------------------------------------------------------
     RUN /opt/conda/bin/conda init bash
+
+    # Initialize Conda and ensure .bashrc is sourced in future sessions
+    RUN echo ". /opt/conda/etc/profile.d/conda.sh && conda activate /opt/conda/envs/ml_env" >> ~/.bashrc
     
     # ---------------------------------------------------------------------------
     # Copy Entrypoint Script and Make It Executable
