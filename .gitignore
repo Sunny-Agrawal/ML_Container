@@ -24,7 +24,3 @@ build/
 *.log
 *.pid
 docker-compose.override.yml  # In case you create custom overrides
-
-# Ignore data directory contents but keep the directory itself
-data/*
-!data/.gitkeep  # But track .gitkeep to ensure the directory exists

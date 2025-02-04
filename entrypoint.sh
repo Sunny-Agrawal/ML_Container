@@ -5,7 +5,10 @@ source /opt/conda/etc/profile.d/conda.sh
 
 # Ensure ./env and ./data directories exist
 mkdir -p /opt/conda/envs
-mkdir -p /usr/local/ML_Repo/data
+mkdir -p /usr/local/ML_Repo/public_datasets
+mkdir -p /usr/local/ML_Repo/base_models
+mkdir -p /usr/local/ML_Repo/custom_models
+mkdir -p /usr/local/ML_Repo/custom_datasets
 
 # Check if the Conda environment exists
 if [ ! -d "/opt/conda/envs/ml_env" ]; then
