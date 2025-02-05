@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
-# Base Image: Ubuntu with CUDA for GPU acceleration (CUDA 12.0.1-devel-ubuntu22.04)
+# Base Image: Ubuntu with CUDA/cuDNN for GPU acceleration (CUDA 12.8.0-cudnn-devel-ubuntu22.04)
 # ---------------------------------------------------------------------------
-    FROM nvidia/cuda:12.0.1-devel-ubuntu22.04
+    FROM nvidia/cuda:12.4.0-devel-ubuntu22.04
 
     # ---------------------------------------------------------------------------
     # Install basic dependencies
@@ -12,25 +12,24 @@
         cmake \
         git \
         wget \
+        python3 \
+        python3-pip \
+        python3-venv \
         nvidia-container-toolkit \
         && rm -rf /var/lib/apt/lists/*
     
     # ---------------------------------------------------------------------------
-    # Install Miniconda for Python and Conda package management
+    # Set up Python virtual environment
     # ---------------------------------------------------------------------------
-    RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
-        bash miniconda.sh -b -p /opt/conda && \
-        rm miniconda.sh && \
-        /opt/conda/bin/conda clean -t -i -p -y
-    ENV PATH=/opt/conda/bin:$PATH
+    RUN python3 -m venv /opt/venv
+    ENV PATH="/opt/venv/bin:$PATH"
     
     # ---------------------------------------------------------------------------
-    # Initialize Conda in the shell
+    # Install Python dependencies
     # ---------------------------------------------------------------------------
-    RUN /opt/conda/bin/conda init bash
-
-    # Initialize Conda and ensure .bashrc is sourced in future sessions
-    RUN echo ". /opt/conda/etc/profile.d/conda.sh && conda activate /opt/conda/envs/ml_env" >> ~/.bashrc
+    COPY requirements.txt /tmp/requirements.txt
+    RUN pip install --upgrade pip && \
+        pip install --no-cache-dir -r /tmp/requirements.txt
     
     # ---------------------------------------------------------------------------
     # Copy Entrypoint Script and Make It Executable

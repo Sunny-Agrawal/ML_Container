@@ -5,12 +5,10 @@
 .DS_Store
 .AppleDouble
 
-# Ignore local Conda environments and virtual environments
-.conda/
+# Ignore virtual environments
 .env
 .venv/
-env/
-!env/.gitkeep
+venv/
 
 # Ignore Python bytecode and Jupyter checkpoints
 *.pyc

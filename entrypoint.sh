@@ -1,27 +1,26 @@
 #!/bin/bash
 
-# Ensure Conda is initialized for this session
-source /opt/conda/etc/profile.d/conda.sh
-
-# Ensure ./env and ./data directories exist
-mkdir -p /opt/conda/envs
+# Ensure necessary directories exist
+mkdir -p /opt/venv
 mkdir -p /usr/local/ML_Repo/public_datasets
 mkdir -p /usr/local/ML_Repo/base_models
 mkdir -p /usr/local/ML_Repo/custom_models
 mkdir -p /usr/local/ML_Repo/custom_datasets
 
-# Check if the Conda environment exists
-if [ ! -d "/opt/conda/envs/ml_env" ]; then
-    echo "Conda environment 'ml_env' does not exist. Creating..."
-    conda env create -f /tmp/environment.yml -p /opt/conda/envs/ml_env
+# Check if the virtual environment exists
+if [ ! -d "/opt/venv/bin" ]; then
+    echo "Virtual environment does not exist. Creating..."
+    python3 -m venv /opt/venv
+    source /opt/venv/bin/activate
+    echo "Installing dependencies from requirements.txt..."
+    pip install --upgrade pip
+    pip install --no-cache-dir -r /tmp/requirements.txt
 else
-    echo "Conda environment 'ml_env' exists. Updating..."
-    conda env update -f /tmp/environment.yml -p /opt/conda/envs/ml_env
+    echo "Virtual environment exists. Activating..."
+    source /opt/venv/bin/activate
+    echo "Checking for dependency updates..."
+    pip install --no-cache-dir -r /tmp/requirements.txt
 fi
-
-# Activate the Conda environment
-echo "Activating Conda environment 'ml_env'..."
-conda activate /opt/conda/envs/ml_env
 
 # Pass control to CMD or keep container running
 exec "$@"
